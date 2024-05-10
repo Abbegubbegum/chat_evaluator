@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-
+from typing import Union
 
 class IndependentTest(ABC):
   @abstractmethod
@@ -16,3 +16,5 @@ class GameTest(ABC):
   def test(self, message_history: list[str]) -> bool:
     assert False, "This method must be implemented in a subclass"
 
+
+TestType = Union[IndependentTest, DependentTest, GameTest]

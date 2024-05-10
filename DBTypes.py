@@ -16,6 +16,9 @@ class DBType:
 
         self.id = doc_id
 
+    def update_in_table(self, table: Table) -> None:
+        table.update(self.to_dict(), doc_ids=[self.get_id()])
+
     def is_in_db(self) -> bool:
         return self.id is not None
 
@@ -77,3 +80,29 @@ class Message(DBType):
     @staticmethod
     def from_dict(data: Document) -> 'Message':
         return Message(data['sender'], data['game'], data['content'], data['turn'], data.doc_id)
+    
+class Test(DBType):
+    def __init__(self, name: str, id: Union[int, None] = None):
+        super().__init__(id)
+        self.name = name
+
+    def to_dict(self) -> Dict:
+        return {'name': self.name}
+    
+    @staticmethod
+    def from_dict(data: Document) -> 'Test':
+        return Test(data['name'], data.doc_id)
+    
+class TestResult(DBType):
+    def __init__(self, test: int, message: int, result: bool, id: Union[int, None] = None):
+        super().__init__(id)
+        self.test = test
+        self.message = message
+        self.result = result
+
+    def to_dict(self) -> Dict:
+        return {'test': self.test, 'message': self.message, 'result': self.result}
+    
+    @staticmethod
+    def from_dict(data: Document) -> 'TestResult':
+        return TestResult(data['test'], data['message'], data['result'], data.doc_id)
