@@ -2,7 +2,7 @@ import re
 from typing import List, Tuple, Union
 from .BaseTests import MessageTest
 
-format_regex = r"^(\w+) - (\w+)$"
+format_regex = r"^\"?(\w+) - (\w+)\"?$"
 
 class FormatTest(MessageTest):
   def test(self, message: str, previous_messages: list[str]) -> bool:
