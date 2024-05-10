@@ -7,7 +7,7 @@ import os
 from os import path, listdir
 import json
 from typing import Dict
-from tests.BaseTests import DependentTest, GameTest, IndependentTest, TestType
+from tests.BaseTests import MessageTest, GameTest, TestType
 
 from DBTypes import Game, GameType, Message, Model, Test, TestResult
 
@@ -36,7 +36,7 @@ def load_tests() -> Dict[str, Dict[str, TestType]]:
         module = importlib.import_module(f"tests.{module_name}")
         for name in dir(module):
             obj = getattr(module, name)
-            if isinstance(obj, type) and issubclass(obj, (GameTest, DependentTest, IndependentTest)) and obj != GameTest and obj != DependentTest and obj != IndependentTest:
+            if isinstance(obj, type) and issubclass(obj, (GameTest, MessageTest)) and obj != GameTest and obj != MessageTest:
                 test_name = f"{module_name}.{obj.__name__}"
                 test_groups[module_name][test_name] = obj()
 
@@ -146,20 +146,7 @@ def run_tests_on_game_type(game_type: GameType, tests_dict: Dict[str, TestType])
 
 def run_test_on_game(game: Game, test_entry: Test, test: TestType):
     messages = [Message.from_dict(message_doc) for message_doc in messages_table.search(where('game') == game.get_id())]
-
-    if isinstance(test, IndependentTest):
-      for message in messages:
-          new_test_result = test.test(message.content)
-          test_result_doc = test_results_table.search((where('test') == test_entry.get_id()) & (where('message') == message.get_id()))
-
-          if len(test_result_doc) == 0:
-              test_result = TestResult(test_entry.get_id(), message.get_id(), new_test_result)
-              test_result.insert_into_table(test_results_table)
-          else:
-              test_result = TestResult.from_dict(test_result_doc[0])
-              test_result.result = new_test_result
-              test_result.update_in_table(test_results_table)
-    elif isinstance(test, DependentTest):
+    if isinstance(test, MessageTest):
         for i, message in enumerate(messages):
             previous_messages = [message.content for message in messages[:i]]
             new_test_result = test.test(message.content, previous_messages)
