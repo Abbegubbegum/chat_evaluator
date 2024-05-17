@@ -8,7 +8,8 @@ class DBType:
 
     def get_id(self) -> int:
         if self.id is None:
-            raise ValueError("Object not in database when attempting to get id.")
+            raise ValueError(
+                "Object not in database when attempting to get id.")
         return self.id
 
     def insert_into_table(self, table: Table) -> None:
@@ -29,6 +30,7 @@ class DBType:
     def from_dict(data: Document):
         raise NotImplementedError
 
+
 class GameType(DBType):
     def __init__(self, name: str, id: Union[int, None] = None):
         super().__init__(id)
@@ -36,11 +38,12 @@ class GameType(DBType):
 
     def to_dict(self) -> Dict:
         return {'name': self.name}
-    
+
     @staticmethod
     def from_dict(data: Document) -> 'GameType':
         return GameType(data['name'], data.doc_id)
-    
+
+
 class Model(DBType):
     def __init__(self, name: str, id: Union[int, None] = None):
         super().__init__(id)
@@ -48,11 +51,12 @@ class Model(DBType):
 
     def to_dict(self) -> Dict:
         return {'name': self.name}
-    
+
     @staticmethod
     def from_dict(data: Document) -> 'Model':
         return Model(data['name'], data.doc_id)
-    
+
+
 class Game(DBType):
     def __init__(self, game_type: int, players: List[int], id: Union[int, None] = None):
         super().__init__(id)
@@ -61,11 +65,12 @@ class Game(DBType):
 
     def to_dict(self) -> Dict:
         return {'game_type': self.game_type, 'players': self.players}
-    
+
     @staticmethod
     def from_dict(data: Document) -> 'Game':
         return Game(data['game_type'], data['players'], data.doc_id)
-    
+
+
 class Message(DBType):
     def __init__(self, sender: int, game: int, content: str, turn: int, id: int | None = None):
         super().__init__(id)
@@ -76,11 +81,12 @@ class Message(DBType):
 
     def to_dict(self) -> Dict:
         return {'sender': self.sender, 'game': self.game, 'content': self.content, 'turn': self.turn}
-    
+
     @staticmethod
     def from_dict(data: Document) -> 'Message':
         return Message(data['sender'], data['game'], data['content'], data['turn'], data.doc_id)
-    
+
+
 class Test(DBType):
     def __init__(self, name: str, id: Union[int, None] = None):
         super().__init__(id)
@@ -88,11 +94,12 @@ class Test(DBType):
 
     def to_dict(self) -> Dict:
         return {'name': self.name}
-    
+
     @staticmethod
     def from_dict(data: Document) -> 'Test':
         return Test(data['name'], data.doc_id)
-    
+
+
 class TestResult(DBType):
     def __init__(self, test: int, message: int, result: bool, id: Union[int, None] = None):
         super().__init__(id)
@@ -102,7 +109,7 @@ class TestResult(DBType):
 
     def to_dict(self) -> Dict:
         return {'test': self.test, 'message': self.message, 'result': self.result}
-    
+
     @staticmethod
     def from_dict(data: Document) -> 'TestResult':
         return TestResult(data['test'], data['message'], data['result'], data.doc_id)
