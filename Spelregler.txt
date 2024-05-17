@@ -1,0 +1,143 @@
+Spelregler:
+
+1_letter_string
+
+1. Player 1 börjar med att skriva ett ord och en sträng från ordet på formen "ord - sträng".
+2. Strängen från det första ordet ska vara exakt en bokstav lång, t.ex "ord - o".
+3. Player 2 väljer ett nytt ord och förlänger strängen med exakt en bokstav, t.ex "snodd - od".
+4. Den nya strängen måste innehålla den gamla strängen med bokstäverna i rätt ordning.
+5. Den nya strängen får bara förlängas i början eller slutet.
+6. Det nya ordet måste innehålla den förlängda strängen med bokstäverna i rätt ordning.
+7. Det nya ordet kan innehålla strängen varsomhelst, inte bara i början eller slutet.
+8. Det nya ordet måste vara ett nytt ord som inte har använts tidigare i spelomgången. (kollas manuellt)
+9. Det nya ordet måste vara ett riktigt engelskt ord. (kollas manuellt)
+10.  Om en spelare bryter mot reglerna och den andra upptäcker det, så kan den andra spelaren säga "Cheater!"
+11. Någon annan kommunikation är inte tillåten, inte förrän någon spelare ropar "Cheater!".
+12.  Om en spelare inte kan förlänga strängen så vinner den andra spelaren.
+
+* * * *
+
+
+2_modified_wordle
+
+1.  Spelet startar med att Concealer säger åt gissaren att börja gissa.
+2.  En gissning ska bestå av exakt 5 bokstäver, med eller utan citationstecken runt.
+3. Orden i gissningen ska vara riktiga engelska ord (kollas manuellt)
+4. Concealer talar om vilka bokstäver i varje gissning som finns i det hemliga ordet.
+5. Ledtrådarna är konsekventa; det är samma hemliga ord hela tiden. 
+6. Det hemliga ordet ska stämma överens med alla Concealers ledtrådar. (kollas manuellt)
+7. Om Guesser gissar på någon av bokstäverna i det hemliga ordet, så måste Concealer berätta det.
+8.  Om inte Guesser har vunnit efter 5 gissningar så ska Concealer berätta det hemliga ordet för att vinna matchen.
+9. Concealer säger "You win!" om Guesser gissar rätt. (Den LLM som vinner får 10 poäng.)
+10. Om Guesser gissar 5 gånger utan att hitta hemliga ordet, så ska det avslöjas av Concealer för att Concealer ska vinna.
+
+* * * *
+
+3_dynamicYesNo
+
+1. Player 1 börjar med en fråga. (strängen ska sluta med frågetecken)
+2. Sedan turas spelarna om att ställa frågor och svara:
+3. Deras strängar börjar med "Yes" eller "No" och slutar med frågetecken.
+4. Om någon gissar rätt så vill man att svaret är konsekvent med resultaten i Yes/No-frågorna (kollas manuellt).
+5. Om någon gissar rätt så ska den andra spelaren tydligt säga "yes, you win!"
+6. En spelare som skriver andra saker än frågor/svar de första åtta meningarna (typ) bryter mot reglerna (i slutet kan det vara ok, gratulera vinnaren t.ex)
+7. Den LLM som vinner får 10 poäng. (Jag har lagt in att motståndaren säger "You win!")
+8. Spelarna får inte avslöja vad de tänker på för den andra spelaren.
+
+* * * *
+
+4_sentence_size_fight
+
+1. Spelarna turas om med att lägga till ett och endast ett ord i taget för att bygga en mening.
+2. Alla tidigare ord ska skrivas ut varje gång en spelare lägger till ett nytt ord.
+3. Inga tidigare ord ska tas bort.
+4. Inga andra interpunktionstecken (!, ;, :, –, ?,...) får användas förutom punkt.
+5. Punkt används för att avsluta spelomgången.
+6. The Extender (Player 1) vinner om hen kan sätta punkt och avsluta meningen efter minst 10 ord.
+7. Completer (Player 2) vinner om hen kan sätta punkt innan 10 ord.
+8. En punkt får inte tas bort eller ändras. Om meningen är grammatiskt riktig så har en spelare vunnit. (kollas manuellt)
+9. Det är tillåtet att avsluta med endast en punkt, eller ett avslutande ord och därefter punkt.
+10. När meningen avslutas måste den vara grammatiskt riktig och fullständig (kollas manuellt)
+11. När matchen är avgjord ska spelarna avsluta sessionen och inte fortsätta.
+12. En spelare bryter mot reglerna och den andra spelaren upptäcker det <-> Upptäckaren kan säga "Cheater!" Då förlorar den som fuskade.
+13. En spelare som säger Cheater! utan att motståndaren fuskade förlorar.
+14. Den LLM som vinner får 10 poäng ((meningen > 9 ord) ? yes : no).
+15. En spelare får inte låtsas vara den andra spelaren. (kollas manuellt)
+
+* * * *
+
+5_get_in_trouble
+
+1. Meningarna ska bestå av max 20 ord.
+2. Berättelsen ska bestå av max 16 meningar.
+3. Spelarna turas om att berätta en mening var.
+4. Efter berättelsen ska ett motiverat omdöme ges, en siffra mellan 1-10.
+5. Båda berättarna ska vara överens om omdömet efteråt.
+6. Berättelsen ska vara sammanhängande och spännande (kollas manuellt)
+
+* * * *
+
+6_die_in_16_lines
+
+1. Båda karaktärerna ska dö (sluta prata) inom 16 repliker
+2. Varje replik måste vara kortare än 30 ord. En replik kan ha mer än en mening.
+3. Spelarna turas om att säga repliker. De får inte låtsas vara den andra spelaren och 'kapa' dess repliker. (kollas manuellt)
+4. Spelare ska samarbeta och bygga vidare på varandras erbjudanden (kollas manuellt)
+5. Improvisationen avslutas med ordet "applause" från någon av spelarna.
+5. Efter applåden ska improvisationen ges ett gemensamt motiverat omdöme.
+
+* * * *
+
+7_take_rhyme
+
+Spelarna ska skapa poesi genom att turas om och rimma på varandras senaste mening.
+Dikten ska rimma på varannan strof "AA, BB, CC" osv, men spelarna ska inte rimma på
+sina egna strofer. 
+
+1. Spelare 1 skriver en mening utan slutrim (A).
+2. Spelare 2 rimmar nästa mening på Spelare 1:s senaste mening (A), och lägger till en mening som inte rimmar med de föregående (B).
+3. Spelare 1 rimmar nästa mening på Spelare 2:s senaste mening (B), och lägger till en mening som inte rimmar med de föregående (C).
+4. Spelare 2 rimmar nästa mening på Spelare 1:s senaste mening (C), osv... när spelarna upprepar mönstret så uppstår en rimmande dikt.
+
+5. Varje strof ska vara mellan 5 till 12 ord lång.
+6. Hela dikten ska vara minst 10 och max 16 strofer lång.
+7. När dikten är slut ska den utvärderas av båda spelarna:
++ (1-5) poäng ska ges för de formella kvaliteterna (rim, versmått, prosodi).
++ (1-5) poäng ska ges för innehållet (sammanhängande, poetiskt, suggestivt).
+
+* * * *
+
+8_ebbas_game
+
+Ett rollspel med två spelare. 
+1. Ena spelaren intervjuar den andra i vad som föreställer en presskonferens.
+2. Alla meddelanden i konferensen är begränsade till 40 ord, det gäller både frågor och svar.
+3. Presskonferensen består av minst 4 och max 6 frågor/svar.
+4. Efteråt presenterar artisten sitt konstverk på maximalt 180 ord.
+5. Scenariot avslutas med att pressen ger tre recensioner, var och en rankad med 1-5 stjärnor.
+
+* * * *
+
+9_bad_rules
+
+Målet är att identifiera hästens ägare, hus och husfärg genom att lägga till information.
++ Det finns fyra (4) hus i rad.
++ Husen har fyra olika färger.
++ I husen bor fyra personer med olika nationalitet
++ Personerna i husen äger ett varsitt djur.
++ Endast en person är hästägare.
+
+Spelarna turas om att lägga till information till scenariot.
+1. Det är inte tillåtet att nämna ordet "häst" (eller hästen, hästägare, hästens hus etc.)
+2. Om fler än 4 (hus, färger, nationalitet eller djur) läggs till blir scenariot inkoherent. (brott mot reglerna)
+3. Allt annat än (hus, färg, nationalitet och djur) är vilseledande information. (inte brott mot reglerna)
+4. En giltig gissning bör göras innan 18 påståenden.
+5. En spelare måste följa reglerna, annars säger den andra spelaren "fusk!" och förklara felet. Om fusket bekräftas avslutas spelet och fuskaren förlorar.
+6. Första spelaren som korrekt identifierar hästägarens nationalitet och husfärg vinner (kollas manuellt).
+För att vinna måste spelaren motivera sin gissning och få den bekräftad av andra spelaren.
+7. Om gissningen är fel presenterar den andra spelaren sin lösning och vinner istället.
+8. Vinnaren får 10 poäng.
+
+
+
+

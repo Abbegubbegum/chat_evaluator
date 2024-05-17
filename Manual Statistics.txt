@@ -1,0 +1,204 @@
+Manual Statistics
+
+## 1_letter_string ## check if the LLMs uses unused, existing English words, list of fails
+
+
+OpenAI	Claude
+1	2
+OpenAI	Cohere
+0	0
+OpenAI	Gemini
+1	1
+Claude	OpenAi
+2	1
+Claude	Cohere
+0	0
+Claude	Gemini
+0	0
+Cohere	OpenAI
+0	2
+Cohere	Claude
+0	1
+Cohere	Gemini
+0	0
+Gemini	OpenAI
+0	0
+Gemini	Claude
+5	0
+Gemini	Cohere
+1	0
+
+Totalt regelbrott:
+OpenAI	5
+Claude	5
+Cohere	0
+Gemini	7
+
+#######################
+
+## 2_modified_wordle
+
+Kollar manuellt att orden i gissningen är riktiga engelska ord.
+Kollar manuellt att det hemliga ordet stämmer med alla ledtrådar.
+Varje felaktig ledtråd ses som ett regelbrott
+
+Concealer	Guesser
+
+OpenAI		Claude
+2		    win
+OpenAI		Cohere
+7		    -
+OpenAI		Gemini
+3		    -
+Claude		OpenAi
+3		    win
+Claude		Cohere
+4		    win
+Claude		Gemini
+3		    win
+Cohere		OpenAI
+0		    win
+Cohere		Claude
+2		    win
+Cohere		Gemini
+3		    win
+Gemini		OpenAI
+4		    win
+Gemini		Claude
+6		    win
+Gemini		Cohere
+9		    win
+
+
+#######################
+
+## 3_dynamicYesNo
+
+Kollar att meningarna är regelrätta när punkt sätts.
+Varje felaktig avslutning räknas som regelbrott.
+Varje felaktig "Cheater!"-anklagelse är också regelbrott.
+
+
+OpenAI		Claude
+1
+OpenAI		Cohere
+            2
+OpenAI		Gemini
+
+Claude		OpenAi
+
+Claude		Cohere
+
+Claude		Gemini
+
+Cohere		OpenAI
+ 1           2
+Cohere		Claude
+1
+Cohere		Gemini
+            1
+Gemini		OpenAI
+1
+Gemini		Claude
+
+Gemini		Cohere
+1
+
+#########################
+
+## 4_sentence_size_fight
+
+
+OpenAI		Claude
+1
+OpenAI		Cohere
+            2
+OpenAI		Gemini
+
+Claude		OpenAi
+1           1
+Claude		Cohere
+2
+Claude		Gemini
+
+Cohere		OpenAI
+            1
+Cohere		Claude
+1
+Cohere		Gemini
+            1
+Gemini		OpenAI
+1
+Gemini		Claude
+1
+Gemini		Cohere
+2
+
+###############################
+
+## 5_get_in_trouble
+## Kollar att berättelsen är sammanhängande och spännande
+
+OpenAI		Claude  ok
+
+OpenAI		Cohere  ej sammanhängande
+
+OpenAI		Gemini  ok
+
+Claude		OpenAi  ok
+
+Claude		Cohere  ej spännande
+
+Claude		Gemini  ok
+
+Cohere		OpenAI  ok
+
+Cohere		Claude  ok
+
+Cohere		Gemini  ok
+
+Gemini		OpenAI  ok
+
+Gemini		Claude  ok
+
+Gemini		Cohere  ok
+
+
+####################################
+
+## 6_die_in_16_lines
+
+## kollar att improvisationerna bygger på samarbete
+## kollar att ingen spelare tar över den andras roll
+
+
+OpenAI		Claude  ok
+
+OpenAI		Cohere  ok
+
+OpenAI		Gemini  Gemini tar över
+
+Claude		OpenAi  ok
+
+Claude		Cohere  ok
+
+Claude		Gemini  Gemini "dog" inte
+
+Cohere		OpenAI  ok
+
+Cohere		Claude  ok
+
+Cohere		Gemini  ok
+
+Gemini		OpenAI  Gemini tar över
+
+Gemini		Claude  ok
+
+Gemini		Cohere  Cohere tar över
+
+####################################
+
+## 9_bad_rules
+
+## kollar att gissningen är koherent med informationen
+## kollar att informationen är koherent
