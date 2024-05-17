@@ -1,6 +1,6 @@
 import re
 from typing import List, Tuple, Union
-from .BaseTests import MessageTest
+from .BaseTests import MessageTest, ManualDependentMessageTest, ManualIndependentMessageTest
 
 format_regex = r"^\"?(\w+) - (\w+)\"?$"
 
@@ -70,6 +70,16 @@ class CheaterAssessement(MessageTest):
             previous_messages[-1], previous_messages[:-1]) for other_test in self.other_tests)
 
         return passed_other_tests if parsed_message is not None else not passed_other_tests
+
+
+class WordExists(ManualIndependentMessageTest):
+    def __init__(self) -> None:
+        super().__init__("Does the word exist?")
+
+
+# class PlayerIsNice(ManualDependentMessageTest):
+#     def __init__(self) -> None:
+#         super().__init__("Is the player nice?")
 
 
 def parse_message(message: str) -> Union[Tuple[str, str], None]:

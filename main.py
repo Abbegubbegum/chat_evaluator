@@ -2,6 +2,7 @@
 
 import importlib
 import typer
+from typing_extensions import Annotated
 from tinydb import TinyDB, Query, where
 from tinydb.table import Document
 from rich import print
@@ -9,7 +10,7 @@ import os
 from os import path, listdir
 import json
 from typing import Dict
-from tests.BaseTests import MessageTest, GameTest, TestType
+from tests.BaseTests import MessageTest, GameTest, ManualMessageTest, ManualIndependentMessageTest, ManualDependentMessageTest, TestType
 from openpyxl import Workbook
 from openpyxl.styles import Font
 
@@ -41,7 +42,7 @@ def load_tests() -> Dict[str, Dict[str, TestType]]:
         module = importlib.import_module(f"tests.{module_name}")
         for name in dir(module):
             obj = getattr(module, name)
-            if isinstance(obj, type) and issubclass(obj, (GameTest, MessageTest)) and obj != GameTest and obj != MessageTest:
+            if isinstance(obj, type) and issubclass(obj, (GameTest, MessageTest)) and obj != GameTest and obj != MessageTest and obj != ManualMessageTest and obj != ManualDependentMessageTest and obj != ManualIndependentMessageTest:
                 test_name = f"{module_name}.{obj.__name__}"
                 test_groups[module_name][test_name] = obj()
 
@@ -70,7 +71,7 @@ def load_chatlogs():
 
 
 @app.command()
-def run_tests(test_group_name: str, game_name: str):
+def run_tests(test_group_name: Annotated[str, typer.Option(prompt=True)], game_name: Annotated[str, typer.Option(prompt=True)], run_manual_tests: Annotated[bool, typer.Option(prompt=True)] = False):
     if test_group_name not in test_groups:
         print(f"No tests found named {test_group_name}")
         return
@@ -85,7 +86,7 @@ def run_tests(test_group_name: str, game_name: str):
 
     game_type = GameType.from_dict(game_type[0])
 
-    run_tests_on_game_type(game_type, test_group)
+    run_tests_on_game_type(game_type, test_group, run_manual_tests)
 
 
 @app.command()
@@ -242,15 +243,22 @@ def load_game(game_type: int, game_data: Dict):
         message.insert_into_table(messages_table)
 
 
-def run_tests_on_game_type(game_type: GameType, tests_dict: Dict[str, TestType]):
+def run_tests_on_game_type(game_type: GameType, tests_dict: Dict[str, TestType], run_manual_tests: bool):
     games = [Game.from_dict(game_doc) for game_doc in games_table.search(
         where('game_type') == game_type.get_id())]
     tests = [Test.from_dict(test_doc) for test_doc in tests_table.search(
         where('name').one_of(list(tests_dict.keys())))]
 
     for test in tests:
-        for game in games:
-            run_test_on_game(game, test, tests_dict[test.name])
+        if not issubclass(tests_dict[test.name].__class__, ManualMessageTest):
+            for game in games:
+                run_test_on_game(game, test, tests_dict[test.name])
+
+    if run_manual_tests:
+        for test in tests:
+            if issubclass(tests_dict[test.name].__class__, ManualMessageTest):
+                for game in games:
+                    run_test_on_game(game, test, tests_dict[test.name])
 
 
 def run_test_on_game(game: Game, test_entry: Test, test: TestType):
