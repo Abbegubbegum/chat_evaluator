@@ -1,7 +1,7 @@
 db.json
 chatlogs/*.json
 chatlogs/loaded/*.json
-
+export.xlsx
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
